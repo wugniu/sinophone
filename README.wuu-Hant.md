@@ -20,7 +20,7 @@
 
 ## 安裝
 
-```bash
+```console
 pip install sinophone
 ```
 
