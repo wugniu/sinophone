@@ -21,7 +21,7 @@ SYLLABLE_STRUCTURE: Dict[str, List[str]] = {
 @total_ordering
 class SyllableComponent(PrettyClass, metaclass=PostInitCaller):
     """
-    吳: 音節要素
+    吳：音節要素
         - 梢音節要素
         - 榦音節要素
             - 根音節要素
@@ -114,7 +114,7 @@ class SyllableComponent(PrettyClass, metaclass=PostInitCaller):
 
 class LeafSyllableComponent(SyllableComponent):
     """
-    吳: 梢音節要素
+    吳：梢音節要素
     """
 
     @overload
@@ -180,7 +180,7 @@ class LeafSyllableComponent(SyllableComponent):
 
 class BranchSyllableComponent(SyllableComponent):
     """
-    吳: 榦音節要素
+    吳：榦音節要素
     """
 
     # decorate subclasses with dataclass to ensure the attribute ``__match_args__``
@@ -245,37 +245,37 @@ class BranchSyllableComponent(SyllableComponent):
 
 class RootSyllableComponent(BranchSyllableComponent):
     """
-    吳: 根音節要素
+    吳：根音節要素
     """
 
 
 class Initial(LeafSyllableComponent):
     """
-    吳: 聲母
+    吳：聲母
     """
 
 
 class Medial(LeafSyllableComponent):
     """
-    吳: 介音
+    吳：介音
     """
 
 
 class Nucleus(LeafSyllableComponent):
     """
-    吳: 韻腹
+    吳：韻腹
     """
 
 
 class Coda(LeafSyllableComponent):
     """
-    吳: 韻尾
+    吳：韻尾
     """
 
 
 class Tone(LeafSyllableComponent, metaclass=PostInitCaller):
     """
-    吳: 聲調
+    吳：聲調
     """
 
     def __post_init__(self) -> None:
@@ -295,7 +295,7 @@ class Tone(LeafSyllableComponent, metaclass=PostInitCaller):
 @dataclass(repr=False, eq=False)
 class Final(BranchSyllableComponent):
     """
-    吳: 韻母
+    吳：韻母
 
     漢語個韻母，一般可以分析爲 介音+韻腹+韻尾
     """
@@ -308,7 +308,7 @@ class Final(BranchSyllableComponent):
 @dataclass(repr=False, eq=False)
 class Syllable(RootSyllableComponent):
     """
-    吳: 音節
+    吳：音節
 
     漢語個音節，一般可以分析爲 聲母+韻母+聲調
     """

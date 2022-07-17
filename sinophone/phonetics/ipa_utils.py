@@ -64,7 +64,7 @@ IPA_TO_ORDER = {ipa: i for i, ipa in enumerate(IPA_TO_UNICODE.keys())}
 @total_ordering
 class IPAChar(PrettyClass, _OldIPAChar):
     """
-    吳: IPA 字元
+    吳：IPA 字元
     """
 
     def __init__(self, descriptors: str) -> None:
@@ -116,7 +116,7 @@ class IPAChar(PrettyClass, _OldIPAChar):
 
 class IPAConsonant(IPAChar, _OldIPAConsonant):
     """
-    吳: IPA 輔音
+    吳：IPA 輔音
 
     descriptors = '{voicing} {place} {manner}'
     """
@@ -128,7 +128,7 @@ class IPAConsonant(IPAChar, _OldIPAConsonant):
 
 class IPADiacritic(IPAChar, _OldIPADiacritic):
     """
-    吳: IPA 附標
+    吳：IPA 附標
 
     descriptors = '{diacritic}'
     """
@@ -157,7 +157,7 @@ class IPADiacritic(IPAChar, _OldIPADiacritic):
 
 class IPATone(IPAChar, _OldIPATone):
     """
-    吳: IPA 聲調
+    吳：IPA 聲調
 
     descriptors = '{tone_level}'
     """
@@ -185,7 +185,7 @@ class IPATone(IPAChar, _OldIPATone):
 
 class IPAVowel(IPAChar, _OldIPAVowel):
     """
-    吳: IPA 元音
+    吳：IPA 元音
 
     descriptors = '{height} {backness} {roundness}'
     """
@@ -198,7 +198,7 @@ class IPAVowel(IPAChar, _OldIPAVowel):
 @total_ordering
 class IPAString(PrettyClass, _OldIPAString, MutableSequence[IPAChar]):
     """
-    吳: IPA 字符串
+    吳：IPA 字符串
     """
 
     @overload
@@ -272,7 +272,7 @@ class IPAString(PrettyClass, _OldIPAString, MutableSequence[IPAChar]):
 
 class IPADescriptor(PrettyClass, _OldIPADescriptor):
     """
-    吳: IPA 描述器
+    吳：IPA 描述器
     """
 
     @overload
@@ -311,7 +311,7 @@ class IPADescriptorGroup(
     PrettyClass, _OldIPADescriptorGroup, AbstractSet[IPADescriptor]
 ):
     """
-    吳: IPA 描述器組
+    吳：IPA 描述器組
     """
 
     def __init__(self, descriptors: Collection[IPADescriptor]) -> None:
@@ -387,5 +387,5 @@ class IPADescriptorGroup(
 
 DG_ALL_DESCRIPTORS = IPADescriptorGroup(_OLD_DG_ALL_DESCRIPTORS)
 """
-吳: 所有描述器
+吳：所有描述器
 """

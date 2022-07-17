@@ -8,7 +8,7 @@ from .options import AnsiColors, LanguageCode, options
 
 class PostInitCaller(type):
     """
-    Call `__post_init__` after `__init__`.
+    Call ``__post_init__`` after ``__init__``.
 
     https://stackoverflow.com/a/17496524/11946514
     """
@@ -60,7 +60,7 @@ class PrettyClass(object):
     @property
     def translated_name(self) -> str:
         """
-        The name of the component in a language specified in `options.repr_lang`.
+        The name of the component in a language specified in ``options.repr_lang``.
         """
 
         if options.repr_lang == LanguageCode.ENGLISH:
@@ -77,10 +77,10 @@ class PrettyClass(object):
     @property
     def wuu_hant_name(self) -> str:
         """
-        Wu Chinese translation of a `SyllableComponent` in Sinographs
-        is always preceded by `吳:` in the docstring.
+        Wu Chinese translation of a ``SyllableComponent`` in Sinographs
+        is always preceded by ``吳：`` in the docstring.
         """
-        return self._get_translated_name_from_docstring_identifier("吳:")
+        return self._get_translated_name_from_docstring_identifier("吳：")
 
     def _get_translated_name_from_docstring_identifier(self, identifier: str) -> str:
         docstring = getdoc(type(self))

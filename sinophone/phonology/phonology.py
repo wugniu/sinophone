@@ -34,7 +34,7 @@ from .syllable import (
 
 SyllablePattern = Callable[[Syllable], bool]
 """
-吳: (匹配) 音節模式
+吳：(匹配) 音節模式
 """
 
 S = TypeVar("S", bound=Syllable)
@@ -46,7 +46,7 @@ S = TypeVar("S", bound=Syllable)
 @dataclass(repr=False, order=True)
 class SyllableFeatures(PrettyClass):
     """
-    吳: 音節特徵
+    吳：音節特徵
 
     A friendly way of generating a ``SyllablePattern`` callable.
     ``syllable_component_features`` is a dictionary of component names
@@ -109,16 +109,16 @@ class SyllableFeatures(PrettyClass):
 @dataclass(repr=False, order=True)
 class PhonotacticAcceptability(PrettyClass):
     """
-    吳: 音位排列受容性
+    吳：音位排列受容性
     """
 
     existent: bool = False
     """
-    吳: 是否存在
+    吳：是否存在
     """
     grammatical: bool = False
     """
-    吳: 是否合法
+    吳：是否合法
     """
 
     def __str__(self) -> str:
@@ -163,7 +163,7 @@ class PhonotacticAcceptability(PrettyClass):
 
 class SyllableInPhonology(Syllable):
     """
-    吳: 音節在音系中個實現
+    吳：音節在音系中個實現
     """
 
     acceptability: PhonotacticAcceptability = PhonotacticAcceptability(True, True)
@@ -189,7 +189,7 @@ class SyllableInPhonology(Syllable):
 @dataclass(repr=False, order=True)
 class PhonotacticConstraint(PrettyClass):
     """
-    吳: 音位排列制約
+    吳：音位排列制約
 
     音位排列，普譯曰「語音組合法」，日譯曰「音素配列論」。
 
@@ -215,7 +215,7 @@ class PhonotacticConstraint(PrettyClass):
 @dataclass(repr=False, order=True)
 class PhonologicalRule(PrettyClass):
     """
-    吳: 音韻規則
+    吳：音韻規則
     """
 
     phoneme: SyllableComponent = Syllable()
@@ -247,7 +247,7 @@ class PhonologicalRule(PrettyClass):
 @dataclass(repr=False)
 class Phonology(PrettyClass):
     """
-    吳: 音韻體系
+    吳：音韻體系
     (音系)
     """
 
