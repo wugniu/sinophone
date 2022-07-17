@@ -5,7 +5,6 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 
 import os
-import sys
 
 
 def read(rel_path: str):
@@ -41,7 +40,7 @@ def get_magic_variable_from_init_py(magic_var_name: str):
 # -- Project information -----------------------------------------------------
 
 project = "sinophone"
-copyright = "Copyright (c) 2022 Yuanhao Chen"
+copyright = "(c) 2022 Yuanhao Chen"
 author = get_magic_variable_from_init_py("author")
 
 # The full version, including alpha/beta/rc tags
