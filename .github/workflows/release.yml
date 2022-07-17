@@ -1,0 +1,63 @@
+name: release
+
+on:
+  release:
+    types: [created, edited]
+
+jobs:
+  build-and-publish:
+    name: Build and publish Python distributions PyPI
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@master
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.10"
+
+      - name: Install pypa/build
+        run: >-
+          python -m
+          pip install
+          build
+          --user
+
+      - name: Build a binary wheel and a source tarball
+        run: >-
+          python -m
+          build
+          --sdist
+          --wheel
+          --outdir dist/
+          .
+
+      - name: Publish distribution package to PyPI
+        uses: pypa/gh-action-pypi-publish@master
+        with:
+          password: ${{ secrets.PYPI_API_TOKEN }}
+
+      - name: Clean build if failed
+        if: ${{ failure() }}
+        run: >-
+          rm -rf
+          dist
+          build
+
+      - name: Build a binary wheel and a source tarball post-release
+        if: ${{ failure() }}
+        run: >-
+          python -m
+          build
+          --config-setting=--global-option=egg_info
+          --config-setting=--global-option=--tag-build="-$(date +"%Y%m%d%H%M%S")"
+          --sdist
+          --wheel
+          --outdir dist/
+          .
+
+      - name: Publish distribution package to PyPI post-release
+        if: ${{ failure() }}
+        uses: pypa/gh-action-pypi-publish@master
+        with:
+          password: ${{ secrets.PYPI_API_TOKEN }}

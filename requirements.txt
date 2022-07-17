@@ -1,0 +1,1 @@
+ipapy == 0.0.9 # fails with "from collections import MutableSequence" in Python 3.10, patched in ipa_utils.py

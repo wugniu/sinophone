@@ -1,0 +1,37 @@
+name: lint
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  lint:
+    strategy:
+      matrix:
+        python-version: [3.8, 3.9, "3.10"]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependency
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-dev.txt
+      - name: Run isort
+        run: |
+          isort . --check-only --diff --combine-as --profile black
+      - name: Run black
+        run: |
+          black . --check
+      - name: Run flake8
+        run: |
+          flake8 sinophone/ tests/ --exclude "examples/*.py" --max-line-length 88 --extend-ignore E203 --statistics
+      - name: Run mypy
+        run: |
+          mypy --package sinophone --ignore-missing-imports
+          mypy --package tests --ignore-missing-imports

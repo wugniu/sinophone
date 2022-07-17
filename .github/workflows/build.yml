@@ -1,0 +1,52 @@
+name: build
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+  schedule:
+    - cron: "0 0 * * 1"
+
+jobs:
+  build-and-test:
+    strategy:
+      matrix:
+        python-version: [3.8, 3.9, "3.10"]
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependency
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install --upgrade setuptools
+          python -m pip install -r requirements-dev.txt
+      - name: Build
+        run: |
+          python setup.py sdist bdist_wheel
+      - name: Install and run unittest with coverage
+        if: matrix.os != 'windows-latest'
+        run: |
+          python -m pip install dist/*.whl
+          export PYTHONHASHSEED=10086
+          coverage run --source sinophone --parallel-mode -m unittest
+      - name: Install and run unittest with coverage on Windows
+        if: matrix.os == 'windows-latest'
+        run: |
+          python -m pip install (Get-ChildItem dist/*.whl)
+          set PYTHONHASHSEED=10086
+          set PYTHONIOENCODING=utf8
+          coverage run --source sinophone --parallel-mode -m unittest
+      - name: Generate coverage report
+        run: |
+          coverage combine
+          coverage xml -i
+      - name: Upload report to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}

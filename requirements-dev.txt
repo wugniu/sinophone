@@ -1,0 +1,8 @@
+# packages for development
+
+black
+coverage
+flake8
+isort
+mypy
+wheel

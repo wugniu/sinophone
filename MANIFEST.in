@@ -1,0 +1,7 @@
+include LICENSE.txt
+include README.md
+include README.wuu-Hant.md
+include setup.py
+
+recursive-include tests *.py
+recursive-include examples *.py

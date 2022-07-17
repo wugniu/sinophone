@@ -1,0 +1,14 @@
+.vscode/
+
+.venv/
+
+.mypy_cache/
+__pycache__/
+
+.coverage
+.coverage.*
+coverage.xml
+
+build/
+dist/
+*.egg-info/
