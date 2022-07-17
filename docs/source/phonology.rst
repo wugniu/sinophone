@@ -5,7 +5,12 @@ Phonology
     :members:
     :show-inheritance:
     :inherited-members:
-    :special-members: __init__
+    :exclude-members: Coda
+
+..    .. autoclass:: Coda(component: Union[IPAString, SyllableComponent, str] = IPAString())
+        :members:
+        :show-inheritance:
+        :inherited-members:
 
 
 Indices

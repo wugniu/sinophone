@@ -16,11 +16,14 @@ SYLLABLE_STRUCTURE: Dict[str, List[str]] = {
     "Coda": [],
     "Tone": [],
 }
+"""Hard-code syllable structure of Chinese."""
 
 
 @total_ordering
 class SyllableComponent(PrettyClass, metaclass=PostInitCaller):
     """
+    The base class for a syllable component.
+
     吳：音節要素
         - 梢音節要素
         - 榦音節要素
@@ -45,9 +48,11 @@ class SyllableComponent(PrettyClass, metaclass=PostInitCaller):
 
     @property
     def component_order(self) -> int:
+        """Returns the order of the component in a syllable."""
         return self.COMPONENT_ORDER_DICT[type(self).__name__]
 
     def has_features(self, features: IPAFeatureGroup) -> bool:
+        """Returns whether a syllable has a feature."""
         return any([ipa_char.has_features(features) for ipa_char in self.ipa_str])
 
     def __post_init__(self) -> None:
@@ -81,18 +86,25 @@ class SyllableComponent(PrettyClass, metaclass=PostInitCaller):
 
     @property
     def sub_components(self) -> List["SyllableComponent"]:
+        """Returns the sub-components of the syllable component."""
         ...
 
     @property
     def recursive_sub_components(self) -> List["SyllableComponent"]:
+        """Recursively returns the sub-components of the syllable component."""
         ...
 
     @property
     def ipa_str(self) -> IPAString:
+        """Returns the IPA string of the component."""
         ...
 
     @property
     def phonetic_ipa_str(self) -> IPAString:
+        """Returns the phonetic IPA string of the component.
+        It will be automatically set when the component is rendered
+        in a phonology with phonological rules.
+        """
         ...
 
     @phonetic_ipa_str.setter
@@ -101,6 +113,7 @@ class SyllableComponent(PrettyClass, metaclass=PostInitCaller):
 
     @property
     def ipa_chars(self) -> List[IPAChar]:
+        """Returns the IPA chars of the component."""
         return list(self.ipa_str.ipa_chars)
 
     @property

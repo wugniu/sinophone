@@ -2,10 +2,9 @@ Options
 =========
 
 .. automodule:: sinophone.options
-    :members: options
+    :members:
     :show-inheritance:
     :inherited-members:
-    :special-members: __init__
 
 
 Indices

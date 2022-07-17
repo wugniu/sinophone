@@ -13,19 +13,35 @@ from .phonology import (
     SyllableInPhonology,
     SyllablePattern,
 )
-from .syllable import Coda, Final, Initial, Medial, Nucleus, Syllable, Tone
+from .syllable import (
+    BranchSyllableComponent,
+    Coda,
+    Final,
+    Initial,
+    LeafSyllableComponent,
+    Medial,
+    Nucleus,
+    RootSyllableComponent,
+    Syllable,
+    SyllableComponent,
+    Tone,
+)
 
 __all__ = [
+    "BranchSyllableComponent",
     "Coda",
     "Final",
     "Initial",
+    "LeafSyllableComponent",
     "Medial",
     "Nucleus",
     "PhonologicalRule",
     "Phonology",
     "PhonotacticAcceptability",
     "PhonotacticConstraint",
+    "RootSyllableComponent",
     "Syllable",
+    "SyllableComponent",
     "SyllableFeatures",
     "SyllableInPhonology",
     "SyllablePattern",

@@ -20,9 +20,7 @@ class PostInitCaller(type):
 
 
 class PrettyClass(object):
-    """
-    This class is pretty when printed.
-    """
+    """This class is pretty when printed."""
 
     def __repr__(self) -> str:
         OPEN_DELIMS = "([{'\""
@@ -122,9 +120,7 @@ def warn_about_dict_ordering() -> None:
 
 
 def fix_ipapy_import_from_collections() -> None:
-    """
-    Fix bug in ipapy for 3.10 and above.
-    """
+    """Fix bug in ipapy for 3.10 and above."""
 
     import sys
     from collections.abc import MutableSequence

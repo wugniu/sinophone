@@ -5,9 +5,7 @@ from typing import Dict
 
 
 class AnsiColors(object):
-    """
-    ANSI colors and styles.
-    """
+    """ANSI colors and styles."""
 
     os.system("")
     """
@@ -41,9 +39,12 @@ RAINBOW_COLOR_SCHEME: Dict[str, str] = {
     "NonexistentUngrammatical": AnsiColors.RED,
     "SinophoneWarning": AnsiColors.YELLOW,
 }
+"""The default color scheme."""
 
 
 class LanguageCode(object):
+    """Accepted languages codes with (partial) translations."""
+
     ENGLISH = "en-Latn"
     WU_CHINESE_IN_SINOGRAPH = "wuu-Hant"
 
@@ -55,21 +56,15 @@ class LanguageCode(object):
 @dataclass
 class Options(object):
     color: bool = True
-    """
-    Whether to use ANSI colors in the ``__repr__`` of some classes.
-    """
+    """Whether to use ANSI colors in the ``__repr__`` of some classes."""
 
     _repr_lang: str = LanguageCode.ENGLISH
-    """
-    Which language to use in ``__repr__`` of some classes.
-    """
+    """Which language to use in ``__repr__`` of some classes."""
 
     color_scheme: Dict[str, str] = field(
         default_factory=lambda: copy(RAINBOW_COLOR_SCHEME)
     )
-    """
-    Which color scheme to use in ``__repr__`` of some classes.
-    """
+    """Which color scheme to use in ``__repr__`` of some classes."""
 
     @property
     def repr_lang(self) -> str:
@@ -83,6 +78,4 @@ class Options(object):
 
 
 options = Options()
-"""
-``sinophone`` package options.
-"""
+"""``sinophone`` package options."""
