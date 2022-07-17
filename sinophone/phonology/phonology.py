@@ -39,7 +39,7 @@ SyllablePattern = Callable[[Syllable], bool]
 
 S = TypeVar("S", bound=Syllable)
 """
-`Syllable` and its subclasses
+``Syllable`` and its subclasses
 """
 
 
@@ -48,12 +48,12 @@ class SyllableFeatures(PrettyClass):
     """
     吳: 音節特徵
 
-    A friendly way of generating a `SyllablePattern` callable.
-    `syllable_component_features` is a dictionary of component names
-    to sets of features. When called, it returns `True` if all syllable
+    A friendly way of generating a ``SyllablePattern`` callable.
+    ``syllable_component_features`` is a dictionary of component names
+    to sets of features. When called, it returns ``True`` if all syllable
     components matches any of the features in the set that is its key.
 
-    幫助生成一個 `(匹配) 音節模式` 可調對象。
+    幫助生成一個 ``(匹配) 音節模式`` 可調對象。
     """
 
     syllable_component_features: Dict[
@@ -265,7 +265,7 @@ class Phonology(PrettyClass):
     color_syllables: bool = True
     """
     Whether to color syllables based on phonotactic acceptability,
-    different from `sinophone.options.color`,
+    different from ``sinophone.options.color``,
     which controls coloring of syllable components.
     """
     phonetic_str: bool = True

@@ -56,19 +56,19 @@ class LanguageCode(object):
 class Options(object):
     color: bool = True
     """
-    Whether to use ANSI colors in the `__repr__` of some classes.
+    Whether to use ANSI colors in the ``__repr__`` of some classes.
     """
 
     _repr_lang: str = LanguageCode.ENGLISH
     """
-    Which language to use in `__repr__` of some classes.
+    Which language to use in ``__repr__`` of some classes.
     """
 
     color_scheme: Dict[str, str] = field(
         default_factory=lambda: copy(RAINBOW_COLOR_SCHEME)
     )
     """
-    Which color scheme to use in `__repr__` of some classes.
+    Which color scheme to use in ``__repr__`` of some classes.
     """
 
     @property
@@ -84,5 +84,5 @@ class Options(object):
 
 options = Options()
 """
-`sinophone` package options.
+``sinophone`` package options.
 """

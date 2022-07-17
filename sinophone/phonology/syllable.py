@@ -183,7 +183,7 @@ class BranchSyllableComponent(SyllableComponent):
     吳: 榦音節要素
     """
 
-    # decorate subclasses with dataclass to ensure the attribute `__match_args__`
+    # decorate subclasses with dataclass to ensure the attribute ``__match_args__``
     # __match_args__: List[str]
 
     def __hash__(self) -> int:

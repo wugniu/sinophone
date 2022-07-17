@@ -1,5 +1,5 @@
 """
-Fix problems in `ipapy`, and augment its classes for purposes of `sinophone`.
+Fix problems in ``ipapy``, and augment its classes for purposes of ``sinophone``.
 """
 
 from functools import total_ordering
