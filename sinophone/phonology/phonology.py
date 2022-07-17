@@ -366,6 +366,6 @@ class Phonology(PrettyClass):
     def pretty_print_syllable(self, syllable: S) -> None:
         try:
             print(self.pretty_syllable_str(syllable))
-        except UnicodeEncodeError:
+        except UnicodeEncodeError:  # pragma: no cover
             # ! cannot reproduce this error in my local Windows environment
             sinophone_warning("UnicodeEncodeError caught. Check your encoding.")
