@@ -3,7 +3,7 @@
 <p align="center">
     <a href="https://github.com/wugniu/sinophone/actions?query=workflow%3Abuild"><img src="https://github.com/wugniu/sinophone/workflows/build/badge.svg?branch=master" alt="build"></a>
     <a href="https://github.com/wugniu/sinophone/actions?query=workflow%3Alint"><img src="https://github.com/wugniu/sinophone/workflows/lint/badge.svg?branch=master" alt="lint"></a>
-    <a href="https://codecov.io/gh/wugniu/sinophone"><img src="https://img.shields.io/codecov/c/github/wugniu/sinophone" alt="coverage"></a>
+    <a href="https://codecov.io/gh/wugniu/sinophone"><img src="https://img.shields.io/codecov/c/github/wugniu/sinophone?token=iISk1lv5WR" alt="coverage"></a>
 </p>
 <p align="center">
     <a href="https://pypi.org/project/sinophone/"><img src="https://img.shields.io/pypi/v/sinophone.svg" alt="pypi"></a>
