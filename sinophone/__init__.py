@@ -1,7 +1,7 @@
 """
-`Sinophone` /ˈsaɪnəˌfoʊn/: Python package for manipulating Chinese phonology.
+``Sinophone`` /ˈsaɪnəˌfoʊn/: Python package for manipulating Chinese phonology.
 
-`三耨風` /se˥˨꜒.noʔ꜓.foŋ꜔꜕/：用於處理漢語音韻個 Python 模塊。
+``三耨風`` /se˥˨꜒.noʔ꜓.foŋ꜔꜕/：用於處理漢語音韻個 Python 模塊。
 """
 
 __author__ = "Yuanhao 'Nyoeghau' Chen"

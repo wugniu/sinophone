@@ -1,9 +1,10 @@
-# Sinophone (三耨風)
+# 三耨風 (Sinophone)
 
 <p align="center">
     <a href="https://github.com/wugniu/sinophone/actions?query=workflow%3Abuild"><img src="https://github.com/wugniu/sinophone/workflows/build/badge.svg?branch=master" alt="build"></a>
     <a href="https://github.com/wugniu/sinophone/actions?query=workflow%3Alint"><img src="https://github.com/wugniu/sinophone/workflows/lint/badge.svg?branch=master" alt="lint"></a>
-    <a href="https://codecov.io/gh/wugniu/sinophone"><img src="https://img.shields.io/codecov/c/github/wugniu/sinophone" alt="coverage"></a>
+    <a href="https://codecov.io/gh/wugniu/sinophone"><img src="https://img.shields.io/codecov/c/github/wugniu/sinophone?token=iISk1lv5WR" alt="coverage"></a>
+    <a href='https://sinophone.readthedocs.io/en/latest/?badge=latest'><img src='https://readthedocs.org/projects/sinophone/badge/?version=latest' alt='Documentation Status' /></a>
 </p>
 <p align="center">
     <a href="https://pypi.org/project/sinophone/"><img src="https://img.shields.io/pypi/v/sinophone.svg" alt="pypi"></a>
@@ -20,9 +21,13 @@
 
 ## 安裝
 
-```bash
+```console
 pip install sinophone
 ```
+
+## 文檔
+
+請訪問[文檔](https://sinophone.readthedocs.io/en/latest/)（目前只有英文版本）。
 
 ## 用例
 

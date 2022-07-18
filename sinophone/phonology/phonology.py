@@ -34,26 +34,26 @@ from .syllable import (
 
 SyllablePattern = Callable[[Syllable], bool]
 """
-吳: (匹配) 音節模式
+A function that returns whether a syllable is matched.
+
+吳：(匹配) 音節模式
 """
 
 S = TypeVar("S", bound=Syllable)
-"""
-`Syllable` and its subclasses
-"""
+"""``Syllable`` and its subclasses"""
 
 
 @dataclass(repr=False, order=True)
 class SyllableFeatures(PrettyClass):
     """
-    吳: 音節特徵
+    吳：音節特徵
 
-    A friendly way of generating a `SyllablePattern` callable.
-    `syllable_component_features` is a dictionary of component names
-    to sets of features. When called, it returns `True` if all syllable
+    A friendly way of generating a ``SyllablePattern`` callable.
+    ``syllable_component_features`` is a dictionary of component names
+    to sets of features. When called, it returns ``True`` if all syllable
     components matches any of the features in the set that is its key.
 
-    幫助生成一個 `(匹配) 音節模式` 可調對象。
+    幫助生成一個 ``(匹配) 音節模式`` 可調對象。
     """
 
     syllable_component_features: Dict[
@@ -109,16 +109,16 @@ class SyllableFeatures(PrettyClass):
 @dataclass(repr=False, order=True)
 class PhonotacticAcceptability(PrettyClass):
     """
-    吳: 音位排列受容性
+    吳：音位排列受容性
     """
 
     existent: bool = False
     """
-    吳: 是否存在
+    吳：是否存在
     """
     grammatical: bool = False
     """
-    吳: 是否合法
+    吳：是否合法
     """
 
     def __str__(self) -> str:
@@ -163,19 +163,25 @@ class PhonotacticAcceptability(PrettyClass):
 
 class SyllableInPhonology(Syllable):
     """
-    吳: 音節在音系中個實現
+    吳：音節在音系中個實現
     """
 
     acceptability: PhonotacticAcceptability = PhonotacticAcceptability(True, True)
 
     @property
     def color(self) -> str:
+        """
+        Returns the color code for this syllable.
+
+        Check ``sinophone.options.color_scheme`` for the meanings of each color.
+        """
         if not options.color:
             return ""
         return options.color_scheme.get(self.acceptability.color_code, "")
 
     @classmethod
     def from_syllable(cls, syllable: S) -> "SyllableInPhonology":
+        """Casts a ``Syllable`` to a ``SyllableInPhonology``."""
         new_syllable = cls(
             deepcopy(syllable.initial),
             deepcopy(syllable.final),
@@ -189,15 +195,17 @@ class SyllableInPhonology(Syllable):
 @dataclass(repr=False, order=True)
 class PhonotacticConstraint(PrettyClass):
     """
-    吳: 音位排列制約
+    吳：音位排列制約
 
     音位排列，普譯曰「語音組合法」，日譯曰「音素配列論」。
 
     在墶認爲音節總個結構只好是 聲母+韻母+聲調 個情況下頭，畀出其他個音位排列規則。
     """
 
-    syllable_pattern: SyllablePattern = SyllableFeatures()
-    acceptability: PhonotacticAcceptability = PhonotacticAcceptability()
+    syllable_pattern: SyllablePattern = field(default_factory=SyllableFeatures)
+    acceptability: PhonotacticAcceptability = field(
+        default_factory=PhonotacticAcceptability
+    )
 
     def __str__(self) -> str:
         return f"{self.syllable_pattern}: {self.acceptability}"
@@ -206,6 +214,7 @@ class PhonotacticConstraint(PrettyClass):
         return hash((type(self).__name__, self.syllable_pattern, self.acceptability))
 
     def apply(self, syllable: S) -> SyllableInPhonology:
+        """Returns a the syllable after applying the phonotactic constraint on it."""
         new_syllable = SyllableInPhonology.from_syllable(syllable)
         if self.syllable_pattern(new_syllable):
             new_syllable.acceptability &= self.acceptability
@@ -215,12 +224,12 @@ class PhonotacticConstraint(PrettyClass):
 @dataclass(repr=False, order=True)
 class PhonologicalRule(PrettyClass):
     """
-    吳: 音韻規則
+    吳：音韻規則
     """
 
-    phoneme: SyllableComponent = Syllable()
-    phonetic_ipa_str: IPAString = IPAString()
-    syllable_pattern: SyllablePattern = SyllableFeatures()
+    phoneme: SyllableComponent = field(default_factory=SyllableComponent)
+    phonetic_ipa_str: IPAString = field(default_factory=IPAString)
+    syllable_pattern: SyllablePattern = field(default_factory=SyllableFeatures)
 
     def __str__(self) -> str:
         return f"{self.phoneme} -> {self.phonetic_ipa_str} / {self.syllable_pattern}"
@@ -236,6 +245,7 @@ class PhonologicalRule(PrettyClass):
         )
 
     def apply(self, syllable: S) -> SyllableInPhonology:
+        """Returns a the syllable after applying the phonological rule on it."""
         new_syllable = SyllableInPhonology.from_syllable(syllable)
         if self.syllable_pattern(new_syllable):
             for component in new_syllable.recursive_sub_components:
@@ -247,7 +257,7 @@ class PhonologicalRule(PrettyClass):
 @dataclass(repr=False)
 class Phonology(PrettyClass):
     """
-    吳: 音韻體系
+    吳：音韻體系
     (音系)
     """
 
@@ -265,12 +275,14 @@ class Phonology(PrettyClass):
     color_syllables: bool = True
     """
     Whether to color syllables based on phonotactic acceptability,
-    different from `sinophone.options.color`,
+    different from ``sinophone.options.color``,
     which controls coloring of syllable components.
     """
     phonetic_str: bool = True
+    """Whether to return the phonetic IPA string of a syllable."""
 
     def refresh(self) -> None:
+        """Refreshes the phonology, re-generating all syllables."""
         self.update_phoneme_collections_from_syllables()
         self.update_rendered_syllables()
 
@@ -287,6 +299,7 @@ class Phonology(PrettyClass):
         return " ".join(str_builder)
 
     def update_phoneme_collections_from_syllables(self) -> None:
+        """Updates the phoneme collections from the syllables."""
         for syllable in self.syllables:
             for sub_component in syllable.sub_components:
                 if (
@@ -306,10 +319,12 @@ class Phonology(PrettyClass):
 
     @property
     def phoneme_collection(self) -> AbstractSet[SyllableComponent]:
+        """Returns the phoneme collection of the phonology."""
         return self.initials | self.finals | self.tones
 
     @property
     def recursive_phoneme_collection(self) -> AbstractSet[SyllableComponent]:
+        """Recursively returns the phoneme collection of the phonology."""
         recursive_phoneme_collection = set(self.phoneme_collection)
         return recursive_phoneme_collection.union(
             *[syl_comp.recursive_sub_components for syl_comp in self.phoneme_collection]
@@ -317,6 +332,7 @@ class Phonology(PrettyClass):
 
     @property
     def leaf_phoneme_collection(self) -> AbstractSet[LeafSyllableComponent]:
+        """Returns the set of leaf phonemes in the phonology."""
         leaf_phoneme_collection = set()
         for phoneme in self.recursive_phoneme_collection:
             if isinstance(phoneme, LeafSyllableComponent):
@@ -325,12 +341,17 @@ class Phonology(PrettyClass):
 
     @property
     def collocations(self) -> AbstractSet[SyllableInPhonology]:
+        """Collocates all phonemes and returns resulting syllables."""
         collocations = set()
         for initial, final, tone in product(self.initials, self.finals, self.tones):
             collocations.add(self.render_syllable(Syllable(initial, final, tone)))
         return collocations
 
     def render_syllable(self, syllable: Syllable) -> SyllableInPhonology:
+        """
+        Renders a syllable in the phonology
+        by applying phonotactics and phonological rules.
+        """
         syllable_in_phonology = SyllableInPhonology.from_syllable(syllable)
         syllable_in_phonology.acceptability = PhonotacticAcceptability(True, True)
 
@@ -342,11 +363,15 @@ class Phonology(PrettyClass):
         return syllable_in_phonology
 
     def update_rendered_syllables(self) -> None:
+        """Updates the rendered syllables of the phonology."""
         self.rendered_syllables = [
             self.render_syllable(syllable) for syllable in sorted(self.syllables)
         ]
 
     def pretty_syllable_str(self, syllable: S) -> str:
+        """
+        Returns a pretty string representation of a syllable
+        in the phonology based on options."""
         rendered_syllable = self.render_syllable(syllable)
 
         pretty_str = ""
@@ -364,6 +389,7 @@ class Phonology(PrettyClass):
         return pretty_str
 
     def pretty_print_syllable(self, syllable: S) -> None:
+        """Prints ``pretty_syllable_str``."""
         try:
             print(self.pretty_syllable_str(syllable))
         except UnicodeEncodeError:  # pragma: no cover

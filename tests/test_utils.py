@@ -24,7 +24,7 @@ class TestUtils(BaseTestCase):
     def test_translated_name(self) -> None:
         class Foo(PrettyClass):
             """
-            吳: 富
+            吳：富
             """
 
         foo = Foo()

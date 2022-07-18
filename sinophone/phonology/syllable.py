@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from functools import total_ordering
 from typing import Dict, List, Union, overload
 
@@ -16,12 +16,15 @@ SYLLABLE_STRUCTURE: Dict[str, List[str]] = {
     "Coda": [],
     "Tone": [],
 }
+"""Hard-code syllable structure of Chinese."""
 
 
 @total_ordering
 class SyllableComponent(PrettyClass, metaclass=PostInitCaller):
     """
-    吳: 音節要素
+    The base class for a syllable component.
+
+    吳：音節要素
         - 梢音節要素
         - 榦音節要素
             - 根音節要素
@@ -45,9 +48,11 @@ class SyllableComponent(PrettyClass, metaclass=PostInitCaller):
 
     @property
     def component_order(self) -> int:
+        """Returns the order of the component in a syllable."""
         return self.COMPONENT_ORDER_DICT[type(self).__name__]
 
     def has_features(self, features: IPAFeatureGroup) -> bool:
+        """Returns whether a syllable has a feature."""
         return any([ipa_char.has_features(features) for ipa_char in self.ipa_str])
 
     def __post_init__(self) -> None:
@@ -81,18 +86,25 @@ class SyllableComponent(PrettyClass, metaclass=PostInitCaller):
 
     @property
     def sub_components(self) -> List["SyllableComponent"]:
+        """Returns the sub-components of the syllable component."""
         ...
 
     @property
     def recursive_sub_components(self) -> List["SyllableComponent"]:
+        """Recursively returns the sub-components of the syllable component."""
         ...
 
     @property
     def ipa_str(self) -> IPAString:
+        """Returns the IPA string of the component."""
         ...
 
     @property
     def phonetic_ipa_str(self) -> IPAString:
+        """Returns the phonetic IPA string of the component.
+        It will be automatically set when the component is rendered
+        in a phonology with phonological rules.
+        """
         ...
 
     @phonetic_ipa_str.setter
@@ -101,6 +113,7 @@ class SyllableComponent(PrettyClass, metaclass=PostInitCaller):
 
     @property
     def ipa_chars(self) -> List[IPAChar]:
+        """Returns the IPA chars of the component."""
         return list(self.ipa_str.ipa_chars)
 
     @property
@@ -114,7 +127,7 @@ class SyllableComponent(PrettyClass, metaclass=PostInitCaller):
 
 class LeafSyllableComponent(SyllableComponent):
     """
-    吳: 梢音節要素
+    吳：梢音節要素
     """
 
     @overload
@@ -125,16 +138,8 @@ class LeafSyllableComponent(SyllableComponent):
     def __init__(self, component: IPAString = IPAString()) -> None:
         ...
 
-    @overload
-    def __init__(self, component: "SyllableComponent") -> None:
-        ...
-
-    def __init__(
-        self, component: Union[IPAString, "SyllableComponent", str] = IPAString()
-    ) -> None:
-        if isinstance(component, SyllableComponent):
-            component = component.ipa_str
-        elif isinstance(component, str):
+    def __init__(self, component: Union[IPAString, str] = IPAString()) -> None:
+        if isinstance(component, str):
             component = IPAString(component)
         elif isinstance(component, IPAString):
             ...
@@ -180,10 +185,10 @@ class LeafSyllableComponent(SyllableComponent):
 
 class BranchSyllableComponent(SyllableComponent):
     """
-    吳: 榦音節要素
+    吳：榦音節要素
     """
 
-    # decorate subclasses with dataclass to ensure the attribute `__match_args__`
+    # decorate subclasses with dataclass to ensure the attribute ``__match_args__``
     # __match_args__: List[str]
 
     def __hash__(self) -> int:
@@ -245,37 +250,37 @@ class BranchSyllableComponent(SyllableComponent):
 
 class RootSyllableComponent(BranchSyllableComponent):
     """
-    吳: 根音節要素
+    吳：根音節要素
     """
 
 
 class Initial(LeafSyllableComponent):
     """
-    吳: 聲母
+    吳：聲母
     """
 
 
 class Medial(LeafSyllableComponent):
     """
-    吳: 介音
+    吳：介音
     """
 
 
 class Nucleus(LeafSyllableComponent):
     """
-    吳: 韻腹
+    吳：韻腹
     """
 
 
 class Coda(LeafSyllableComponent):
     """
-    吳: 韻尾
+    吳：韻尾
     """
 
 
 class Tone(LeafSyllableComponent, metaclass=PostInitCaller):
     """
-    吳: 聲調
+    吳：聲調
     """
 
     def __post_init__(self) -> None:
@@ -295,24 +300,24 @@ class Tone(LeafSyllableComponent, metaclass=PostInitCaller):
 @dataclass(repr=False, eq=False)
 class Final(BranchSyllableComponent):
     """
-    吳: 韻母
+    吳：韻母
 
     漢語個韻母，一般可以分析爲 介音+韻腹+韻尾
     """
 
-    medial: Medial = Medial()
-    nucleus: Nucleus = Nucleus()
-    coda: Coda = Coda()
+    medial: Medial = field(default_factory=Medial)
+    nucleus: Nucleus = field(default_factory=Nucleus)
+    coda: Coda = field(default_factory=Coda)
 
 
 @dataclass(repr=False, eq=False)
 class Syllable(RootSyllableComponent):
     """
-    吳: 音節
+    吳：音節
 
     漢語個音節，一般可以分析爲 聲母+韻母+聲調
     """
 
-    initial: Initial = Initial()
-    final: Final = Final()
-    tone: Tone = Tone()
+    initial: Initial = field(default_factory=Initial)
+    final: Final = field(default_factory=Final)
+    tone: Tone = field(default_factory=Tone)

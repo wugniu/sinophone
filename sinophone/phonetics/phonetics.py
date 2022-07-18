@@ -8,7 +8,7 @@ from .ipa_utils import DG_ALL_DESCRIPTORS
 @total_ordering
 class IPAFeature(PrettyClass):
     """
-    吳: IPA 區別特徵
+    吳：IPA 區別特徵
     """
 
     def __init__(self, descriptor: str, presence: bool = True) -> None:
@@ -60,7 +60,7 @@ class IPAFeature(PrettyClass):
 @total_ordering
 class IPAFeatureGroup(MutableSet[IPAFeature], PrettyClass):
     """
-    吳: IPA 區別特徵組
+    吳：IPA 區別特徵組
 
     A set of (meaningful) IPA features.
     """
