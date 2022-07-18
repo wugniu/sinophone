@@ -58,7 +58,8 @@ class PrettyClass(object):
     @property
     def translated_name(self) -> str:
         """
-        The name of the component in a language specified in ``sinophone.options.repr_lang``.
+        The name of the component in a language according to the language code
+        as specified in ``sinophone.options.repr_lang``.
         """
 
         if options.repr_lang == LanguageCode.ENGLISH:
