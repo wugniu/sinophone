@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from functools import total_ordering
 from typing import Dict, List, Union, overload
 
@@ -138,16 +138,8 @@ class LeafSyllableComponent(SyllableComponent):
     def __init__(self, component: IPAString = IPAString()) -> None:
         ...
 
-    @overload
-    def __init__(self, component: "SyllableComponent") -> None:
-        ...
-
-    def __init__(
-        self, component: Union[IPAString, "SyllableComponent", str] = IPAString()
-    ) -> None:
-        if isinstance(component, SyllableComponent):
-            component = component.ipa_str
-        elif isinstance(component, str):
+    def __init__(self, component: Union[IPAString, str] = IPAString()) -> None:
+        if isinstance(component, str):
             component = IPAString(component)
         elif isinstance(component, IPAString):
             ...
@@ -313,9 +305,9 @@ class Final(BranchSyllableComponent):
     漢語個韻母，一般可以分析爲 介音+韻腹+韻尾
     """
 
-    medial: Medial = Medial()
-    nucleus: Nucleus = Nucleus()
-    coda: Coda = Coda()
+    medial: Medial = field(default_factory=Medial)
+    nucleus: Nucleus = field(default_factory=Nucleus)
+    coda: Coda = field(default_factory=Coda)
 
 
 @dataclass(repr=False, eq=False)
@@ -326,6 +318,6 @@ class Syllable(RootSyllableComponent):
     漢語個音節，一般可以分析爲 聲母+韻母+聲調
     """
 
-    initial: Initial = Initial()
-    final: Final = Final()
-    tone: Tone = Tone()
+    initial: Initial = field(default_factory=Initial)
+    final: Final = field(default_factory=Final)
+    tone: Tone = field(default_factory=Tone)

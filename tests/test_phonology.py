@@ -57,10 +57,8 @@ class TestLeafSyllableComponent(BaseTestCase):
 
         k_initial1 = Initial("k")
         k_initial2 = Initial(IPAString("k"))
-        k_initial3 = Initial(Coda("k"))
 
         self.assertEqualAndHashEqual(k_initial1, k_initial2)
-        self.assertEqualAndHashEqual(k_initial2, k_initial3)
 
     def test_ipa_str(self) -> None:
         k_initial = Initial("k")

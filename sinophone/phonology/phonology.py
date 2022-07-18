@@ -202,8 +202,10 @@ class PhonotacticConstraint(PrettyClass):
     在墶認爲音節總個結構只好是 聲母+韻母+聲調 個情況下頭，畀出其他個音位排列規則。
     """
 
-    syllable_pattern: SyllablePattern = SyllableFeatures()
-    acceptability: PhonotacticAcceptability = PhonotacticAcceptability()
+    syllable_pattern: SyllablePattern = field(default_factory=SyllableFeatures)
+    acceptability: PhonotacticAcceptability = field(
+        default_factory=PhonotacticAcceptability
+    )
 
     def __str__(self) -> str:
         return f"{self.syllable_pattern}: {self.acceptability}"
@@ -225,9 +227,9 @@ class PhonologicalRule(PrettyClass):
     吳：音韻規則
     """
 
-    phoneme: SyllableComponent = Syllable()
-    phonetic_ipa_str: IPAString = IPAString()
-    syllable_pattern: SyllablePattern = SyllableFeatures()
+    phoneme: SyllableComponent = field(default_factory=SyllableComponent)
+    phonetic_ipa_str: IPAString = field(default_factory=IPAString)
+    syllable_pattern: SyllablePattern = field(default_factory=SyllableFeatures)
 
     def __str__(self) -> str:
         return f"{self.phoneme} -> {self.phonetic_ipa_str} / {self.syllable_pattern}"
