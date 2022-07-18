@@ -1,4 +1,4 @@
-# Sinophone (三耨風)
+# 三耨風 (Sinophone)
 
 <p align="center">
     <a href="https://github.com/wugniu/sinophone/actions?query=workflow%3Abuild"><img src="https://github.com/wugniu/sinophone/workflows/build/badge.svg?branch=master" alt="build"></a>
@@ -24,6 +24,10 @@
 ```console
 pip install sinophone
 ```
+
+## 文檔
+
+請訪問[文檔](https://sinophone.readthedocs.io/en/latest/)（目前只有英文版本）。
 
 ## 用例
 

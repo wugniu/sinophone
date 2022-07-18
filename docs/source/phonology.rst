@@ -1,16 +1,30 @@
 Phonology
 =========
 
-.. automodule:: sinophone.phonology
+You could use ``from sinophone.phonology import *`` to import all the phonology-related interfaces.
+
+
+Syllable
+--------
+
+You could abbreviate ``sinophone.phonology.syllable.<something>`` to ``sinophone.phonology.<something>``.
+
+.. automodule:: sinophone.phonology.syllable
     :members:
     :show-inheritance:
     :inherited-members:
-    :exclude-members: Coda
+    :special-members: __init__
 
-..    .. autoclass:: Coda(component: Union[IPAString, SyllableComponent, str] = IPAString())
-        :members:
-        :show-inheritance:
-        :inherited-members:
+
+Phonology
+---------
+
+You could abbreviate ``sinophone.phonology.phonology.<something>`` to ``sinophone.phonology.<something>``.
+
+.. automodule:: sinophone.phonology.phonology
+    :members:
+    :show-inheritance:
+    :inherited-members:
 
 
 Indices

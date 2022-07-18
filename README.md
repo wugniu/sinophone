@@ -25,6 +25,10 @@
 pip install sinophone
 ```
 
+## Documentation
+
+Please visit [the documentation](https://sinophone.readthedocs.io/en/latest/) for more information.
+
 ## Example of use
 
 In the following example, I simulated a tiny portion of Shanghainese phonology. Observe how `sinophone` can collocate phonemes to create a list of hypothetical syllables, and then pick out the ones that contradict the phonotactic constraint `pc`. It also applied a phonological rule when printing the syllable in phonetic transcription as `bʊ̃ŋ˥˥`, instead of the phonemic one, `boŋ˥˥`.
