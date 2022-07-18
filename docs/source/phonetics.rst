@@ -13,7 +13,6 @@ You could abbreviate ``sinophone.phonetics.ipa_utils.<something>`` to ``sinophon
     :members:
     :show-inheritance:
     :inherited-members:
-    :special-members: __init__
 
 
 Phonetics
