@@ -87,17 +87,14 @@ class SyllableComponent(PrettyClass, metaclass=PostInitCaller):
     @property
     def sub_components(self) -> List["SyllableComponent"]:
         """Returns the sub-components of the syllable component."""
-        ...
 
     @property
     def recursive_sub_components(self) -> List["SyllableComponent"]:
         """Recursively returns the sub-components of the syllable component."""
-        ...
 
     @property
     def ipa_str(self) -> IPAString:
         """Returns the IPA string of the component."""
-        ...
 
     @property
     def phonetic_ipa_str(self) -> IPAString:
@@ -105,7 +102,6 @@ class SyllableComponent(PrettyClass, metaclass=PostInitCaller):
         It will be automatically set when the component is rendered
         in a phonology with phonological rules.
         """
-        ...
 
     @phonetic_ipa_str.setter
     def phonetic_ipa_str(self, value) -> None:
